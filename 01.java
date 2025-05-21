@@ -26,8 +26,8 @@ class Student{
     void setdaysAttended(int daysAttended){
         this.daysAttended=daysAttended;
     }
-    public String toString(){
-        return "ID:"+studentId+",Name:"+name+",Days Attended:"+daysAttended;
+    public void displayInfo(){
+        System.out.println( "Student ID:"+studentId+",Name:"+name+",Days Attended:"+daysAttended);
     }
     class Classroom{
         int[] obj=new int[10];
@@ -72,4 +72,3 @@ class Student{
     }
     
 }
-
