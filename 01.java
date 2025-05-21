@@ -1,74 +1,95 @@
-class Student{
+
+class Student {
     private int studentId;
-    private  String name;
+    private String name;
     private int daysAttended;
 
-    Student(int studentId,String name,int daysAttended){
-        this.studentId=studentId;
-        this.name=name;
-        this.daysAttended=daysAttended;
+    public Student(int studentId, String name, int daysAttended) {
+        this.studentId = studentId;
+        this.name = name;
+        this.daysAttended = daysAttended;
     }
-    int getStudentId(){
-        return StudentId;
+
+    public int getStudentId() {
+        return studentId;
     }
-    void setStudentId(int studentId){
-        this.studentId=studentId;
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
-    String getname(){
+
+    public String getName() {
         return name;
     }
-    void setName(string name){
-        this.name=name;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    int getdaysAttended(){
+
+    public int getDaysAttended() {
         return daysAttended;
     }
-    void setdaysAttended(int daysAttended){
-        this.daysAttended=daysAttended;
+
+    public void setDaysAttended(int daysAttended) {
+        this.daysAttended = daysAttended;
     }
-    public void displayInfo(){
-        System.out.println( "Student ID:"+studentId+",Name:"+name+",Days Attended:"+daysAttended);
-    }
-    class Classroom{
-        int[] obj=new int[10];
-        int stcount=0;
-        
-    void addStudent(Student s){
-        if(count<10){
-            students[count]=s;
-            count++;
-         }else{
-            System.out.println("Class full");
-         }
-    }
-    void updateAttendance(int id,int newDays){
-        boolean found=false;
-        for(int i=0; i<count; i++){
-            if(students[i].getStudentId()==id){
-                students[i].setDaysAttended(newDays);
-                found=true;
-                break;
-            }
-        }
-        if(!found){
-            System.out.println("Student id"+id+"not found");
-        }
-        void studentDetails(){
-            for(int i=0; i<count; i++){
-                System.out.println(students[i]);
-            }
-        }
-    }
-    public class Main{
-        public static void main(String[] args){
-            classroom classroom=new classroom();
-            classroom.addStudent(new Student(101,"Alice Smith",12));
-            classroom.addStudent(new Student(102,"Bob Jones",15));
-            classroom.addStudent(new Student(103,"Carol Lee",10));
-            classroom.updateAttendance(102,16);
-            classroom.updateAttendance(104,8);
-            classroom.studentDetails();
-        }
-    }
+
     
+    public String toString() {
+        return "Student ID: " + studentId + ", Name: " + name + ", Days Attended: " + daysAttended;
+    }
+}
+
+
+ class Classroom {
+    private Student[] students;
+    private int studentCount;
+
+    public Classroom() {
+        students = new Student[10];
+        studentCount = 0;
+    }
+
+    public void addStudent(Student student) {
+        if (studentCount < 10) {
+            students[studentCount] = student;
+            studentCount++;
+        } else {
+            System.out.println("Classroom is full. Cannot add more students.");
+        }
+    }
+
+    public void updateAttendance(int studentId, int newDaysAttended) {
+        for (int i = 0; i < studentCount; i++) {
+            if (students[i].getStudentId() == studentId) {
+                students[i].setDaysAttended(newDaysAttended);
+                System.out.println("Updated attendance for student ID " + studentId);
+                return;
+            }
+        }
+        System.out.println("Student with ID " + studentId + " not found.");
+    }
+
+    public void displayAllStudents() {
+        for (int i = 0; i < studentCount; i++) {
+            System.out.println(students[i]);
+        }
+    }
+}
+
+
+ class Main {
+    public static void main(String[] args) {
+        Classroom classroom = new Classroom();
+
+        
+        classroom.addStudent(new Student(101, "Alice Smith", 12));
+        classroom.addStudent(new Student(102, "Bob Jones", 15));
+        classroom.addStudent(new Student(103, "Carol Lee", 10));
+
+        
+        classroom.updateAttendance(102, 16);
+		classroom.updateAttendance(104, 14);
+		classroom.displayAllStudents();
+    }
 }
