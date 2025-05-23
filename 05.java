@@ -1,6 +1,6 @@
 class Student {
     private String name;
-    private int exam1, exam2, exam3;
+    private int exam1, exam2, exam3;  
 
     public Student(String name, int exam1, int exam2, int exam3) {
         if (!isValidScore(exam1) || !isValidScore(exam2) || !isValidScore(exam3)) {
