@@ -3,6 +3,7 @@ class Ticket {
     private String customerName;
     private int seatNumber;
 
+
     public Ticket(int ticketNumber, String customerName, int seatNumber) {
         this.ticketNumber = ticketNumber;
         this.customerName = customerName;

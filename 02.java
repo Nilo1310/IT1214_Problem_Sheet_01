@@ -3,6 +3,7 @@ class Vehicle{
 	private String ownerName;
 	private int hoursParked;
 	
+	
 	Vehicle(String lp, String on, int hp){
 		licensePlate=lp;
 		ownerName=on;
