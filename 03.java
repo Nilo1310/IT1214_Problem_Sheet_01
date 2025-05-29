@@ -21,85 +21,71 @@ class BankAccount {
         return balance;
     }
 
-    public void setAccountHolder(String accountHolder) {
-        this.accountHolder = accountHolder;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     public void withdraw(double amount) {
         if (amount > balance) {
             throw new IllegalArgumentException("Insufficient balance");
         }
         balance -= amount;
     }
-
-    public void displayInfo() {
-        System.out.println("Account Number: " + accountNumber +
-                           ", Holder: " + accountHolder +
-                           ", Balance: " + balance);
-    }
 }
 
 class Bank {
     private BankAccount[] accounts;
-    private int count;
+    private int accountCount;
 
     public Bank() {
         accounts = new BankAccount[5];
-        count = 0;
+        accountCount = 0;
     }
 
     public void addAccount(BankAccount account) {
-        if (count < accounts.length) {
-            accounts[count] = account;
-            count++;
-            System.out.println("Account added: " + account.getAccountNumber());
+        if (accountCount < 5) {
+            accounts[accountCount] = account;
+            accountCount++;
         } else {
-            System.out.println("Bank account limit reached.");
+            System.out.println("Bank cannot handle more accounts.");
         }
     }
 
     public void withdrawFromAccount(int accountNumber, double amount) {
-        boolean found = false;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < accountCount; i++) {
             if (accounts[i].getAccountNumber() == accountNumber) {
-                found = true;
                 try {
                     accounts[i].withdraw(amount);
-                    System.out.println("Withdrawal of " + amount + " from account " + accountNumber + " successful.");
+                    return;
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Error: " + e.getMessage());
+                    System.out.println(e.getMessage());
+                    return;
                 }
-                break;
             }
         }
-        if (!found) {
-            System.out.println("Account not found: " + accountNumber);
-        }
+        System.out.println("Account with number " + accountNumber + " not found.");
     }
 
     public void displayAllAccounts() {
-        System.out.println("All Bank Accounts:");
-        if (count == 0) {
-            System.out.println("No accounts available.");
-        } else {
-            for (int i = 0; i < count; i++) {
-                accounts[i].displayInfo();
-            }
+        System.out.println("Account #\tHolder\t\tBalance");
+        for (int i = 0; i < accountCount; i++) {
+            System.out.printf("%d\t\t%s\t\t%.2f\n", 
+                accounts[i].getAccountNumber(), 
+                accounts[i].getAccountHolder(), 
+                accounts[i].getBalance());
         }
     }
 }
 
-class Main {
+ class Main {
     public static void main(String[] args) {
         Bank bank = new Bank();
-		bank.addAccount(new BankAccount(1001, "Alice", 5000.0));
+        
+        // Add accounts
+        bank.addAccount(new BankAccount(1001, "Alice", 5000.0));
         bank.addAccount(new BankAccount(1002, "Bob", 3000.0));
-		bank.withdrawFromAccount(1001, 6000.0); 
-        bank.withdrawFromAccount(1002, 1000.0); 
-		bank.displayAllAccounts();
+        
+        // Withdraw money
+        bank.withdrawFromAccount(1001, 6000.0); // Should cause exception
+        bank.withdrawFromAccount(1002, 1000.0); // Should succeed
+        
+        // Display all accounts
+        bank.displayAllAccounts();
     }
 }
