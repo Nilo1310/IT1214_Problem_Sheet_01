@@ -1,6 +1,7 @@
 class Vehicle{
 	private String licensePlate;
-	private String ownerName;
+	private St    public void displayAllVehicles() {
+ring ownerName;
 	private int hoursParked;
 	
 	Vehicle(String lp, String on, int hp){
